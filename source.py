@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import ConfusionMatrixDisplay, confusion_matrix, f1_score, matthews_corrcoef,accuracy_score
 from sklearn.model_selection import train_test_split
@@ -16,12 +17,42 @@ def LoadDataset():
 
 def PreprocessData(df):
     df = df.dropna()
-    x = df.drop(columns=['gameId', 'blueWins', 'blueGoldDiff', 'blueExperienceDiff', 'redGoldDiff', 'redExperienceDiff'], axis=1)
+    '''
+    df['killDiff'] = df['blueKills'] - df['redKills']
+    df['deathDiff'] = df['blueDeaths'] - df['redDeaths']
+    df['assistDiff'] = df['blueAssists'] - df['redAssists']
+
+    df['goldPerKillBlue'] = df['blueTotalGold'] / (df['blueKills'] + 1)
+    df['goldPerKillRed']  = df['redTotalGold'] / (df['redKills'] + 1)
+
+    df['csDiff'] = df['blueTotalMinionsKilled'] - df['redTotalMinionsKilled']
+
+    df['objectiveScoreBlue'] = (
+        df['blueDragons'] * 2 +
+        df['blueHeralds'] * 3 +
+        df['blueTowersDestroyed'] * 4
+    )
+
+    df['objectiveScoreRed'] = (
+        df['redDragons'] * 2 +
+        df['redHeralds'] * 3 +
+        df['redTowersDestroyed'] * 4
+    )
+    '''
+
+
+    x = df.drop(columns=['gameId', 'blueWins', 'blueGoldDiff', 'blueExperienceDiff', 'redGoldDiff', 'redExperienceDiff',
+                         'redGoldPerMin', 'blueGoldPerMin', 'redAvgLevel', 'blueAvgLevel', 'blueCSPerMin', 'redCSPerMin',
+                         #'blueKills', 'redKills', 'blueDeaths', 'redDeaths', 'blueAssists', 'redAssists',
+                         #'blueTotalGold', 'blueKills', 'redTotalGold', 'redKills', 'blueTotalMinionsKilled', 'redTotalMinionsKilled',
+                         #'blueDragons', 'redDragons', 'blueHeralds', 'redHeralds', 'blueTowersDestroyed', 'redTowersDestroyed'
+                         ], axis=1)
+
     y = df['blueWins']
     return x, y
 
 def SplitData(x, y):
-    X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42, stratify=y)
+    X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
     return X_train, X_test, y_train, y_test
 
 def TrainModel(X_train, X_test, y_test, y_train, model):
@@ -58,6 +89,15 @@ def TrainModel(X_train, X_test, y_test, y_train, model):
         print("\nTop 15 Feature Importances:")
         print(feat_imp.head(15))
 
+def PlotCorrelation(X, dataset, features=None):
+    dataFrame = pd.DataFrame(X, columns=features if features.any() else [f"Feature_{i}" for i in range(X.shape[1])])
+    correlation = dataFrame.corr()
+
+    plt.figure(figsize=(10, 8))
+    sns.heatmap(correlation, annot=False, cmap='coolwarm')
+    plt.title(f"Feature Correlation Heatmap - {dataset}")
+    plt.show()
+
 
 
 if __name__ == "__main__":
@@ -73,6 +113,8 @@ if __name__ == "__main__":
         ('SVC', SVC(probability=True, kernel='linear', C=0.5)),
         ('Gaussian NB', GaussianNB())
     ]
+    PlotCorrelation(x, "High Diamond Ranked 10min", features=x.columns)
+
 
     for model_name, model in models:
         print(f"Training {model_name}...")

@@ -38,7 +38,22 @@ async function predict() {
     const winner = result.blueWins === 1 ? "Blue Team Wins" : "Red Team Wins";
     const cls = result.blueWins === 1 ? "blue" : "red";
 
-    document.getElementById("result").innerHTML =
-        `<span class="${cls}">${winner}</span><br>
-         Win Probability: ${(result.probability * 100).toFixed(2)}%`;
+    const resultDiv = document.getElementById("result");
+
+    if (result.error) {
+        resultDiv.innerHTML = `<span class="error">${result.error}</span>`;
+        return;
+    }
+    
+    if (result.blueWins === 1) {
+        resultDiv.innerHTML = `
+            <h2 class="blue">Blue Team Wins 🟦</h2>
+            <p>Win probability: ${(result.probability * 100).toFixed(2)}%</p>
+        `;
+    } else {
+        resultDiv.innerHTML = `
+            <h2 class="red">Red Team Wins 🟥</h2>
+            <p>Win probability: ${(100 - result.probability * 100).toFixed(2)}%</p>
+        `;
+    }
 }

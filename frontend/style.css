@@ -89,3 +89,24 @@ button:hover {
 .red {
     color: #f87171;
 }
+
+.result-box {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.2em;
+}
+
+.blue {
+    color: #1e90ff;
+}
+
+.red {
+    color: #dc143c;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+}

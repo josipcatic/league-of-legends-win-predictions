@@ -1,0 +1,28 @@
+<!-- frontend/index.html -->
+<!DOCTYPE html>
+<html>
+<body>
+  <input id="f1" placeholder="Feature 1">
+  <input id="f2" placeholder="Feature 2">
+  <input id="f3" placeholder="Feature 3">
+  <button onclick="send()">Predict</button>
+
+  <p id="result"></p>
+
+<script>
+async function send() {
+  const res = await fetch("http://127.0.0.1:8000/predict", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      feature1: Number(f1.value),
+      feature2: Number(f2.value),
+      feature3: Number(f3.value)
+    })
+  })
+  const data = await res.json()
+  document.getElementById("result").innerText = data.prediction
+}
+</script>
+</body>
+</html>

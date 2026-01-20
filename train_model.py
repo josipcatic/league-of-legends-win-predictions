@@ -43,6 +43,7 @@ def PreprocessData(df):
 
     x = df.drop(columns=['gameId', 'blueWins', 'blueGoldDiff', 'blueExperienceDiff', 'redGoldDiff', 'redExperienceDiff',
                          'redGoldPerMin', 'blueGoldPerMin', 'redAvgLevel', 'blueAvgLevel', 'blueCSPerMin', 'redCSPerMin',
+                         'redWardsPlaced', 'blueWardsPlaced', 'redWardsDestroyed', 'blueWardsDestroyed', 'redTotalJungleMinionsKilled', 'blueTotalJungleMinionsKilled'
                          #'blueKills', 'redKills', 'blueDeaths', 'redDeaths', 'blueAssists', 'redAssists',
                          #'blueTotalGold', 'blueKills', 'redTotalGold', 'redKills', 'blueTotalMinionsKilled', 'redTotalMinionsKilled',
                          #'blueDragons', 'redDragons', 'blueHeralds', 'redHeralds', 'blueTowersDestroyed', 'redTowersDestroyed'
@@ -87,7 +88,7 @@ def TrainModel(X_train, X_test, y_test, y_train, model):
         )
     
         print("\nTop 15 Feature Importances:")
-        print(feat_imp.head(15))
+        print(feat_imp.head(30))
 
 def PlotCorrelation(X, dataset, features=None):
     dataFrame = pd.DataFrame(X, columns=features if features.any() else [f"Feature_{i}" for i in range(X.shape[1])])
@@ -110,7 +111,7 @@ if __name__ == "__main__":
         ('Logistic Regression', LogisticRegression(solver='lbfgs', max_iter=10000)),
         ('Decision Tree', DecisionTreeClassifier(max_depth=5, random_state=42)),
         ('Random Forest', RandomForestClassifier(n_estimators=50, max_depth=5)),
-        ('SVC', SVC(probability=True, kernel='linear', C=0.5)),
+        #('SVC', SVC(probability=True, kernel='linear', C=0.5)),
         ('Gaussian NB', GaussianNB())
     ]
     PlotCorrelation(x, "High Diamond Ranked 10min", features=x.columns)

@@ -3,49 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <title>LoL Win Predictor</title>
-    <link rel="stylesheet" href="style.css">
+
     <link rel="stylesheet" href="/static/style.css">
     <script defer src="/static/script.js"></script>
-
 </head>
 <body>
 
 <div class="container">
-    <h1>League of Legends Win Predictor</h1>
-    <p>Predict the winning team based on 10-minute game statistics</p>
+    <header>
+        <h1>League of Legends Win Predictor</h1>
+        <p>Predict the winning team based on 10-minute in-game statistics</p>
+    </header>
 
-    <div class="grid">
-        <div class="team">
-            <h2 class="blue">Blue Team</h2>
-            <label>First Blood <input id="blueFirstBlood" type="number"></label>
-            <label>Kills <input id="blueKills" type="number"></label>
-            <label>Deaths <input id="blueDeaths" type="number"></label>
-            <label>Assists <input id="blueAssists" type="number"></label>
-            <label>Elite Monsters <input id="blueEliteMonsters" type="number"></label>
-            <label>Dragons <input id="blueDragons" type="number"></label>
-            <label>Heralds <input id="blueHeralds" type="number"></label>
-            <label>Towers Destroyed <input id="blueTowersDestroyed" type="number"></label>
-            <label>Total Gold <input id="blueTotalGold" type="number"></label>
-            <label>Total Experience <input id="blueTotalExperience" type="number"></label>
-            <label>Total Minions Killed <input id="blueTotalMinionsKilled" type="number"></label>
-        </div>
+    <div class="teams">
+        <section class="team blue-panel">
+            <h2>Blue Team</h2>
 
-        <div class="team">
-            <h2 class="red">Red Team</h2>
-            <label>First Blood <input id="redFirstBlood" type="number"></label>
-            <label>Kills <input id="redKills" type="number"></label>
-            <label>Deaths <input id="redDeaths" type="number"></label>
-            <label>Assists <input id="redAssists" type="number"></label>
-            <label>Elite Monsters <input id="redEliteMonsters" type="number"></label>
-            <label>Dragons <input id="redDragons" type="number"></label>
-            <label>Heralds <input id="redHeralds" type="number"></label>
-            <label>Towers Destroyed <input id="redTowersDestroyed" type="number"></label>
-            <label>Total Gold <input id="redTotalGold" type="number"></label>
-            <label>Total Experience <input id="redTotalExperience" type="number"></label>
-            <label>Total Minions Killed <input id="redTotalMinionsKilled" type="number"></label>
-        </div>
+            <div class="field"><label>First Blood</label><input id="blueFirstBlood" type="number"></div>
+            <div class="field"><label>Kills</label><input id="blueKills" type="number"></div>
+            <div class="field"><label>Deaths</label><input id="blueDeaths" type="number"></div>
+            <div class="field"><label>Assists</label><input id="blueAssists" type="number"></div>
+            <div class="field"><label>Elite Monsters</label><input id="blueEliteMonsters" type="number"></div>
+            <div class="field"><label>Dragons</label><input id="blueDragons" type="number"></div>
+            <div class="field"><label>Heralds</label><input id="blueHeralds" type="number"></div>
+            <div class="field"><label>Towers Destroyed</label><input id="blueTowersDestroyed" type="number"></div>
+            <div class="field"><label>Total Gold</label><input id="blueTotalGold" type="number"></div>
+            <div class="field"><label>Total Experience</label><input id="blueTotalExperience" type="number"></div>
+            <div class="field"><label>Total Minions Killed</label><input id="blueTotalMinionsKilled" type="number"></div>
+        </section>
+
+        <section class="team red-panel">
+            <h2>Red Team</h2>
+
+            <div class="field"><label>First Blood</label><input id="redFirstBlood" type="number"></div>
+            <div class="field"><label>Kills</label><input id="redKills" type="number"></div>
+            <div class="field"><label>Deaths</label><input id="redDeaths" type="number"></div>
+            <div class="field"><label>Assists</label><input id="redAssists" type="number"></div>
+            <div class="field"><label>Elite Monsters</label><input id="redEliteMonsters" type="number"></div>
+            <div class="field"><label>Dragons</label><input id="redDragons" type="number"></div>
+            <div class="field"><label>Heralds</label><input id="redHeralds" type="number"></div>
+            <div class="field"><label>Towers Destroyed</label><input id="redTowersDestroyed" type="number"></div>
+            <div class="field"><label>Total Gold</label><input id="redTotalGold" type="number"></div>
+            <div class="field"><label>Total Experience</label><input id="redTotalExperience" type="number"></div>
+            <div class="field"><label>Total Minions Killed</label><input id="redTotalMinionsKilled" type="number"></div>
+        </section>
     </div>
 
     <button id="predictBtn">Predict Winner</button>
 
     <div id="result" class="result-box"></div>
+</div>
+
+</body>
+</html>
